@@ -8,6 +8,7 @@
     <a href="/forum/{{$nbSalon}}/{{$nbDisc}}/mess_create">Envoyer un message</a>
 </div>
 
+<div>
 @foreach ($message as $mess)
     <div class="list-group">
         <div class="titre_disc">
@@ -20,7 +21,7 @@
             {{$mess->auteur_message}}
         </div>
     </div>
-{{ $mess->links() }}
+{{ $message->links() }}
 @endforeach
-
+</div>
 @endsection

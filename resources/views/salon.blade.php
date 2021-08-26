@@ -9,7 +9,7 @@
 </div>
 
 @foreach ($discussion as $disc)
-<a href="/forum/{{$nbSalon}}/{{$disc->id}}">
+<a href="/forum/{{$nbSalon}}/{{$disc->id}}/message_list">
     <div class="flex">
         <div class="titre_disc">
             {{ $disc->Titre }}

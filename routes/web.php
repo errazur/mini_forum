@@ -68,7 +68,8 @@ route::get('/forum/{salon}/disc_create', function (Salon $salon) {
     ] );
 });
 
-route::get('/forum/{salon}/{discussion}', function (Salon $salon, Discussion $discussion) {
+route::get('/forum/{salon}/{discussion}/message_list', function (Salon $salon, Discussion $discussion) {
+
     $message = Message::where('id_discussion', $discussion->id)
     ->paginate(20);
 
@@ -79,9 +80,17 @@ route::get('/forum/{salon}/{discussion}', function (Salon $salon, Discussion $di
     ]);
 });
 
+route::post('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
+    $Mess = new Message();
+    $Mess->text_du_message = request()->input('Message_contenu');
+    $Mess->auteur_message = request()->input('Auteur_mess');
+    $Mess->	id_discussion = $discussion->id;
+    $Mess->save();
+
+    return redirect("/forum/$salon->id/$discussion->id/message_list");
+});
 
 route::get('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
-
     return view('mess_create', [
         'nbDisc' => $discussion->id,
         'nbSalon' => $salon->id,
