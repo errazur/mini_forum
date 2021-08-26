@@ -30,10 +30,16 @@ route::get('/forum', function () {
 });
 
 Route::post('/forum', function (){
-    $Salon = new Salon();
-    $Salon->Titre = request()->input('titre');
-    $Salon->Description = request()->input('description');
-    $Salon->save();
+
+    $data = request()->validate([
+        'Titre' => 'min:4|required',
+        'Description' => 'required'
+    ]);
+
+    $Salon = Salon :: create($data);
+    // $Salon->Titre = request()->input('titre');
+    // $Salon->Description = request()->input('description');
+    // $Salon->save();
     return redirect('/forum');
 });
 
@@ -53,12 +59,20 @@ route::get('/forum/{salon}', function (Salon $salon){
 });
 
 Route::post('/forum/{salon}/disc_create', function (Salon $salon) {
-    $Disc = new Discussion();
-    $Disc->Titre = request()->input('titre_disc');
-    $Disc->Message = request()->input('message_disc');
-    $Disc->auteur_de_discussion = request()->input('auteur_disc');
-    $Disc->id_salon = $salon->id;
-    $Disc->save();
+
+    $data = request()->validate([
+        'Titre' => 'required|min:4',
+        'Message' => 'required|min:4',
+        'auteur_de_discussion' => 'required',
+        'id_salon' => 'exists:salons,id'
+    ]);
+
+    $Disc = Discussion :: create($data);
+    // $Disc->Titre = request()->input('titre_disc');
+    // $Disc->Message = request()->input('message_disc');
+    // $Disc->auteur_de_discussion = request()->input('auteur_disc');
+    // $Disc->id_salon = $salon->id;
+    // $Disc->save();
     return redirect("/forum/$salon->id");
 });
 
@@ -81,11 +95,18 @@ route::get('/forum/{salon}/{discussion}/message_list', function (Salon $salon, D
 });
 
 route::post('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
-    $Mess = new Message();
-    $Mess->text_du_message = request()->input('Message_contenu');
-    $Mess->auteur_message = request()->input('Auteur_mess');
-    $Mess->	id_discussion = $discussion->id;
-    $Mess->save();
+
+    $data = request()->validate([
+        'text_du_message' => 'required|min:4',
+        'auteur_message' => 'required',
+        'id_discussion' => 'exists:discussions,id'
+    ]);
+
+    $Mess = Message :: create($data);
+    // $Mess->text_du_message = request()->input('Message_contenu');
+    // $Mess->auteur_message = request()->input('Auteur_mess');
+    // $Mess->	id_discussion = $discussion->id;
+    // $Mess->save();
 
     return redirect("/forum/$salon->id/$discussion->id/message_list");
 });

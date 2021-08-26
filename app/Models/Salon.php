@@ -9,4 +9,5 @@ class Salon extends Model
 {
     public $timestamps = false;
     use HasFactory;
+    protected $fillable = ['Titre', 'Description'];
 }
