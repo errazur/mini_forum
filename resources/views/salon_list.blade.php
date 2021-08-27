@@ -3,9 +3,9 @@
 
 @section('content')
 
-    <div class="flex">
-        <p>Ici tu peux trouver la liste des Salons :</p>
-        <a href="/forum/create">Creer un Salon</a>
+    <div class="flex mt-7 mb-7 shadow h-11">
+        <p class="">Ici tu peux trouver la liste des Salons :</p>
+        <a class="flex" href="/forum/create">Creer un Salon</a>
     </div>
 
     <div class="container">
