@@ -1,11 +1,11 @@
 {{-- La liste des Salons affiché dans le Home --}}
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 
     <div class="flex mt-7 mb-7 shadow h-11">
         <p class="">Ici tu peux trouver la liste des Salons :</p>
-        <a class="flex" href="/forum/create">Creer un Salon</a>
+        <a class="flex" href="{{route('Create_form')}}">Creer un Salon</a>
     </div>
 
     <div class="container">

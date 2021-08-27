@@ -1,9 +1,9 @@
 {{-- Création des Salons --}}
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 
-<form action="/forum" method="POST">
+<form action="{{route('Create_form')}}" method="POST">
     @csrf
     <input type="text" placeholder="Titre du Salon" name="Titre">
     <textarea placeholder="Description du Salon" name="Description"></textarea>

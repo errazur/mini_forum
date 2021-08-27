@@ -16,19 +16,16 @@ use App\Models\Message;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+route::get('/', function () {
+    $salons = Salon::paginate(20);
+    return view('salon_list', [
+        'salons' => $salons
+    ]);
+})->name('Accueil');
 
 Route::middleware(['auth'])->group(function () {
-    route::get('/forum', function () {
-        $salons = Salon::paginate(20);
-        return view('salon_list', [
-            'salons' => $salons
-        ]);
-    });
 
-    Route::post('/forum', function (){
+    Route::post('/forum/create', function (){
 
         $data = request()->validate([
             'Titre' => 'min:4|required',
@@ -39,12 +36,12 @@ Route::middleware(['auth'])->group(function () {
         // $Salon->Titre = request()->input('titre');
         // $Salon->Description = request()->input('description');
         // $Salon->save();
-        return redirect('/forum');
-    });
+        return redirect('/');
+    })->name('Create_salon');
 
     route::get('/forum/create', function () {
         return view('create');
-    });
+    })->name('Create_form');
 
     route::get('/forum/{salon}', function (Salon $salon){
 
@@ -55,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
             'discussion' => $discussion ,
             'nbSalon' => $salon->id
         ]);
-    });
+    })->name('Salon');
 
     Route::post('/forum/{salon}/disc_create', function (Salon $salon) {
 
@@ -73,13 +70,13 @@ Route::middleware(['auth'])->group(function () {
         // $Disc->id_salon = $salon->id;
         // $Disc->save();
         return redirect("/forum/$salon->id");
-    });
+    })->name('disc_form');
 
     route::get('/forum/{salon}/disc_create', function (Salon $salon) {
         return view('disc_create',[
             'nbSalon' => $salon->id
         ] );
-    });
+    })->name('disc_form');
 
     route::get('/forum/{salon}/{discussion}/message_list', function (Salon $salon, Discussion $discussion) {
 
@@ -92,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
             'nbSalon' => $salon->id,
             'message' => $message
         ]);
-    });
+    })->name('message_list');
 
     route::post('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
 
@@ -109,14 +106,14 @@ Route::middleware(['auth'])->group(function () {
         // $Mess->save();
 
         return redirect("/forum/$salon->id/$discussion->id/message_list");
-    });
+    })->name('mess_form');
 
     route::get('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
         return view('mess_create', [
             'nbDisc' => $discussion->id,
             'nbSalon' => $salon->id,
         ]);
-    });
+    })->name('');
 
 });
 

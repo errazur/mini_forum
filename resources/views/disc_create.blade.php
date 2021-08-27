@@ -1,5 +1,5 @@
 {{-- Formulaire de création des discussions --}}
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 

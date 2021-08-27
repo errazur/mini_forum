@@ -1,5 +1,5 @@
 {{-- La liste des discussions dans le Salon --}}
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 

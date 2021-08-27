@@ -9,6 +9,10 @@ module.exports = {
 
     theme: {
         extend: {
+            backgroundImage: theme => ({
+                'banniere': "url('/images/banniere_ffv.png')"
+               }),
+
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },

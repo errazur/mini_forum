@@ -11,7 +11,7 @@
 <body class="bg-purple-400">
     <a href="/forum" class=""><div class="shadow bg-black h-52 flex justify-center"><img class="h-52 -left-40" src="{{ URL::asset('/images/banniere.jpg')}}" alt="Home Forum"></div></a>
 
-        @yield('content')
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 {{-- Liste des Message dans la discussion --}}
-@extends('home')
+@extends('layouts.app')
 
 @section('content')
 
