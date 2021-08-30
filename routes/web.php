@@ -23,6 +23,30 @@ route::get('/', function () {
     ]);
 })->name('Accueil');
 
+route::get('/forum/{salon}', function (Salon $salon){
+
+    $discussion = Discussion::where('id_salon', $salon->id)
+    ->paginate(20);
+
+    return view('salon', [
+        'discussion' => $discussion ,
+        'nbSalon' => $salon->id
+    ]);
+})->name('Salon');
+
+route::get('/forum/{salon}/{discussion}/message_list', function (Salon $salon, Discussion $discussion) {
+
+    $message = Message::where('id_discussion', $discussion->id)
+    ->orderBy('created_at', 'desc')
+    ->paginate(20);
+
+    return view('message_list', [
+        'nbDisc' => $discussion->id,
+        'nbSalon' => $salon->id,
+        'message' => $message
+    ]);
+})->name('message_list');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::post('/forum/create', function (){
@@ -42,17 +66,6 @@ Route::middleware(['auth'])->group(function () {
     route::get('/forum/create', function () {
         return view('create');
     })->name('Create_form');
-
-    route::get('/forum/{salon}', function (Salon $salon){
-
-        $discussion = Discussion::where('id_salon', $salon->id)
-        ->paginate(20);
-
-        return view('salon', [
-            'discussion' => $discussion ,
-            'nbSalon' => $salon->id
-        ]);
-    })->name('Salon');
 
     Route::post('/forum/{salon}/disc_create', function (Salon $salon) {
 
@@ -77,19 +90,6 @@ Route::middleware(['auth'])->group(function () {
             'nbSalon' => $salon->id
         ] );
     })->name('disc_form');
-
-    route::get('/forum/{salon}/{discussion}/message_list', function (Salon $salon, Discussion $discussion) {
-
-        $message = Message::where('id_discussion', $discussion->id)
-        ->orderBy('created_at', 'desc')
-        ->paginate(20);
-
-        return view('message_list', [
-            'nbDisc' => $discussion->id,
-            'nbSalon' => $salon->id,
-            'message' => $message
-        ]);
-    })->name('message_list');
 
     route::post('/forum/{salon}/{discussion}/mess_create', function (Salon $salon, Discussion $discussion) {
 
