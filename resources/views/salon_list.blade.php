@@ -9,9 +9,9 @@
 
     <div class="flex mt-7 mb-7 shadow">
         <div class="container">
-            <div class="bg-black text-white list-group">
+            <div class="bg-white text-white flex flex-wrap justify-around">
                 @foreach ($salons as $salon)
-                    <div class="list-group-item hover:bg-blue-500">
+                    <div class="hover:bg-blue-500 m-4 text-center shadow bg-gray-100 mt-auto w-24 text-black">
                         <a href="/forum/{{ $salon->id }}">
                             <div class="titre_salon">
                                 {{ $salon->Titre }}
